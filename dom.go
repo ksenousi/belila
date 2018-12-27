@@ -3,6 +3,7 @@ package main
 import "container/list"
 
 type TextNode struct {
+	children *list.List
 	text string
 }
 
@@ -19,7 +20,7 @@ type ElementData struct {
 type AttrMap = map[string]string
 
 func text(data string) TextNode {
-	return TextNode{data}
+	return TextNode{list.New(), data}
 }
 
 func elem(name string, attrs AttrMap, children *list.List) ElementNode {

@@ -2,28 +2,24 @@ package main
 
 import "container/list"
 
-type TextNode struct {
-	children *list.List
-	text string
-}
-
-type ElementNode struct {
+type node struct {
 	children    *list.List
-	elementData ElementData
+	text        string
+	elementData elementData
 }
 
-type ElementData struct {
+type elementData struct {
 	tagName    string
-	attributes AttrMap
+	attributes attrMap
 }
 
-type AttrMap = map[string]string
+type attrMap = map[string]string
 
-func text(data string) TextNode {
-	return TextNode{list.New(), data}
+func text(data string) node {
+	return node{text: data}
 }
 
-func elem(name string, attrs AttrMap, children *list.List) ElementNode {
-	elementData := ElementData{tagName: name, attributes: attrs}
-	return ElementNode{children, elementData}
+func elem(name string, attrs attrMap, children *list.List) node {
+	elementData := elementData{tagName: name, attributes: attrs}
+	return node{children: children, elementData: elementData}
 }
